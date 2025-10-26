@@ -1,5 +1,4 @@
 from langchain_anthropic import ChatAnthropic
-# from langchain_ollama import ChatOllama
 from dotenv import load_dotenv
 from langgraph_supervisor import create_supervisor
 from langchain_core.runnables.graph import CurveStyle, MermaidDrawMethod, NodeStyles
@@ -46,13 +45,11 @@ except ImportError:
     SUPERVISOR_PROMPT
 )
 
-
-
 load_dotenv()
 
 # Initialize model
 model = ChatAnthropic(model=os.getenv("LLM_CHOICE"))
-# model = ChatOllama(model="qwen3:0.6b", temperature=0) # not better tool calling
+
 
 # Create specialized agents
 web_search_agent = create_agent(
