@@ -9,6 +9,7 @@ except ImportError:
     import os
     sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     from agent import get_agent
+
 # Initialize FastAPI app
 app = FastAPI(
     title="Stock Analysis Agent API",
