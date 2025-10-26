@@ -40,7 +40,7 @@ The Superior-Agent system consists of three specialized agents coordinated by a 
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/ijona5/superior-agent.git
+   git clone https://github.com/devgomesai/Superior-Agent.git
    cd superior-agent
    ```
 
