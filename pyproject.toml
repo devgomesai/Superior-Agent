@@ -1,0 +1,23 @@
+[project]
+name = "superior-agent"
+version = "0.1.0"
+description = "AI-powered stock analysis agent with multi-agent system"
+readme = "README.md"
+author = "Jonathan Gomes"
+requires-python = ">=3.12"
+dependencies = [
+    "ipython>=9.6.0",
+    "langchain>=1.0.2",
+    "langchain-anthropic>=1.0.0",
+    "langchain-openai>=1.0.1",
+    "langgraph>=1.0.1",
+    "langgraph-supervisor>=0.0.30",
+    "python-dotenv>=1.1.1",
+    "yfinance>=0.2.66",
+    "fastapi>=0.115.0",
+    "uvicorn>=0.34.0",
+    "streamlit>=1.39.0",
+    "pydantic>=2.9.0",
+    "rich>=14.2.0",
+    "langchain-ollama>=1.0.0",
+]
