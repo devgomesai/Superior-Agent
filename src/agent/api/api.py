@@ -1,6 +1,5 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from langchain_core.runnables.graph import CurveStyle, MermaidDrawMethod, NodeStyles
 import logging
     
 try:
@@ -24,26 +23,9 @@ logger = logging.getLogger(__name__)
 class AnalysisRequest(BaseModel):
     query: str
 
-os.makedirs("output", exist_ok=True)
 
 # Initialize agent app
 agent_app = get_agent()
-
-try:
-    agent_app.get_graph().draw_mermaid_png(
-        curve_style=CurveStyle.LINEAR,
-        node_colors=NodeStyles(
-            first="#FF6B6B",  # Vibrant red for start
-            last="#4ECDC4",  # Teal for end
-            default="#95E1D3",  # Mint green for regular nodes
-        ),
-        wrap_label_n_words=9,
-        output_file_path='graph.png',
-        background_color="white",
-        padding=20,
-    )
-except Exception as e:
-    print(f"Could not generate graph image: {e}")
 
 
 @app.get("/")
