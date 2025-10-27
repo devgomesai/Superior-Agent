@@ -20,4 +20,5 @@ dependencies = [
     "pydantic>=2.9.0",
     "rich>=14.2.0",
     "langchain-ollama>=1.0.0",
+    "langchain-groq>=1.0.0",
 ]
