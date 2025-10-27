@@ -1,4 +1,3 @@
-from langchain_anthropic import ChatAnthropic
 from langchain_groq import ChatGroq
 from dotenv import load_dotenv
 from langgraph_supervisor import create_supervisor
@@ -49,7 +48,6 @@ except ImportError:
 load_dotenv()
 
 # Initialize model
-# model = ChatAnthropic(model=os.getenv("LLM_CHOICE"), temperature=0.1)
 model = ChatGroq(model=os.getenv("LLM_CHOICE"),
                  temperature=0.1,
                  api_key=os.getenv("GROQ_API_KEY"))

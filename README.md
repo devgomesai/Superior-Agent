@@ -64,8 +64,9 @@ The Superior-Agent system consists of three specialized agents coordinated by a 
    # Perplexity API key for market research
    PERPLEXITY_API_KEY=your_perplexity_api_key_here
 
-   # LLM choice (currently only anthropic is implemented)
-   LLM_CHOICE=claude-sonnet-3-5  # or another anthropic model
+   # LLM choice (Groq Cloud Models)
+   LLM_CHOICE=openai/gpt-oss-120b  
+   GROQ_API_KEY=gsk_xxx
    ```
 
 2. The application uses environment variables to configure:
