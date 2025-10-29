@@ -53,9 +53,16 @@ async def analyze(request: AnalysisRequest):
     try:
         logger.info(f"Analyzing: {request.query}")
         
-        result = agent_app.invoke({
-            "messages": [{"role": "user", "content": request.query}]
-        })
+        result = agent_app.invoke(
+        {
+            "messages": [
+                {
+                    "role": "user",
+                    "content": request.query
+                }
+            ]
+        }
+    )
         
         return {
             "status": "success",

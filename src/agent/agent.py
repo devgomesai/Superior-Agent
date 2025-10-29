@@ -1,7 +1,8 @@
 from langchain_groq import ChatGroq
+from langchain.chat_models import init_chat_model
 from dotenv import load_dotenv
 from langgraph_supervisor import create_supervisor
-from langchain_core.runnables.graph import CurveStyle, MermaidDrawMethod, NodeStyles
+from langchain_core.runnables.graph import CurveStyle, NodeStyles
 from langchain.agents import create_agent
 import os
 
@@ -47,11 +48,7 @@ except ImportError:
 
 load_dotenv()
 
-# Initialize model
-model = ChatGroq(model=os.getenv("LLM_CHOICE"),
-                 temperature=0.1,
-                 api_key=os.getenv("GROQ_API_KEY"))
-
+model = init_chat_model(os.getenv('LLM_CHOICE'))
 
 # Create specialized agents
 web_search_agent = create_agent(
@@ -98,7 +95,7 @@ def get_agent():
             wrap_label_n_words=9,
             output_file_path='graph.png',
             background_color="white",
-            padding=20,
+            padding=20
         )
     except Exception as e:
         print(f"Could not generate graph image: {e}")

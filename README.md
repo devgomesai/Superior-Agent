@@ -145,7 +145,7 @@ Available tools in `src/tools/stock_analysis_tools.py`:
 
 - **API Keys**: Ensure your Perplexity API key is valid and has sufficient credits
 - **Internet Connectivity**: The system requires internet access for fetching financial data and market research
-- **LLM Access**: Ensure your Anthropic API key is properly configured if using Claude models
+- **LLM Access**: Ensure your GROQ API key is properly configured
 - **Rate Limits**: Be aware of API rate limits for both Perplexity and Yahoo Finance
 
 
