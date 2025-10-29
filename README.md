@@ -73,7 +73,7 @@ The Superior-Agent system consists of three specialized agents coordinated by a 
    ANTHROPIC_API_KEY=sk-ant-your_anthropic_api_key_here
    ```
 
-   For more LLM options, refer to [LangChain's init_chat_model documentation](https://python.langchain.com/api_reference/langchain/chat_models/langchain.chat_models.base.init_chat_model.html)
+   For more LLM options, refer to [documentation](https://python.langchain.com/api_reference/langchain/chat_models/langchain.chat_models.base.init_chat_model.html)
 
 2. The application uses environment variables to configure:
    - Perplexity API for market research
