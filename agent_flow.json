@@ -3,66 +3,63 @@
   "result": {
     "messages": [
       {
-        "content": "Tell me about the stock market of GOOGLE",
+        "content": "Do a deep Search on the Stock Analysis of Adobe",
         "additional_kwargs": {},
         "response_metadata": {},
         "type": "human",
         "name": null,
-        "id": "12f13d92-8d6d-4194-9952-025a456e75f9"
+        "id": "8b65fb74-dc45-47ff-bfea-3ac6f805c31a"
       },
       {
         "content": "",
         "additional_kwargs": {
-          "refusal": null
+          "reasoning_content": "We need to follow workflow: ask web_search_agent to collect recent market and company news, then ask finacial_yf_agent to gather stock prices, performance, and financial metrics, then send all gathered data to report_generator_agent to create and save final report. We must not do tasks ourselves. So we need to call web_search_agent with appropriate query: \"Adobe stock analysis recent market news\". Then after we get response, call finacial_yf_agent to get stock data for Adobe (ticker ADBE). Then combine data and send to report_generator_agent. We'll need to store responses. We'll need to pass data in JSON. Let's do step 1.",
+          "tool_calls": [
+            {
+              "id": "fc_4f57c94f-0596-4f45-8c00-5eb12025bc35",
+              "function": {
+                "arguments": "{\"query\":\"Adobe stock analysis recent market news\"}",
+                "name": "transfer_to_web_search_agent"
+              },
+              "type": "function"
+            }
+          ]
         },
         "response_metadata": {
           "token_usage": {
-            "completion_tokens": 283,
-            "prompt_tokens": 211,
-            "total_tokens": 494,
-            "completion_tokens_details": {
-              "accepted_prediction_tokens": 0,
-              "audio_tokens": 0,
-              "reasoning_tokens": 256,
-              "rejected_prediction_tokens": 0
-            },
-            "prompt_tokens_details": {
-              "audio_tokens": 0,
-              "cached_tokens": 0
-            }
+            "completion_tokens": 169,
+            "prompt_tokens": 297,
+            "total_tokens": 466,
+            "completion_time": 0.36699953,
+            "prompt_time": 0.02017361,
+            "queue_time": 0.049557669,
+            "total_time": 0.38717314
           },
-          "model_provider": "openai",
-          "model_name": "o3-mini-2025-01-31",
-          "system_fingerprint": "fp_3f8fed6e5a",
-          "id": "chatcmpl-CVskA2uuS5oIaE4E0GNnx2g4Ciywf",
-          "service_tier": "default",
+          "model_name": "openai/gpt-oss-120b",
+          "system_fingerprint": "fp_70d048ba3c",
+          "service_tier": "on_demand",
           "finish_reason": "tool_calls",
-          "logprobs": null
+          "logprobs": null,
+          "model_provider": "groq"
         },
         "type": "ai",
         "name": "financial_manager_agent",
-        "id": "lc_run--83a287fb-c4be-46d8-9ccd-fc8c28626b0c-0",
+        "id": "lc_run--fc78e51a-5544-4c00-8ec8-41dc0bb87917-0",
         "tool_calls": [
           {
             "name": "transfer_to_web_search_agent",
-            "args": {},
-            "id": "call_YC0nW3S1pQ5BVk1gsQjBMR3B",
+            "args": {
+              "query": "Adobe stock analysis recent market news"
+            },
+            "id": "fc_4f57c94f-0596-4f45-8c00-5eb12025bc35",
             "type": "tool_call"
           }
         ],
         "invalid_tool_calls": [],
         "usage_metadata": {
-          "input_tokens": 211,
-          "output_tokens": 283,
-          "total_tokens": 494,
-          "input_token_details": {
-            "audio": 0,
-            "cache_read": 0
-          },
-          "output_token_details": {
-            "audio": 0,
-            "reasoning": 256
-          }
+          "input_tokens": 297,
+          "output_tokens": 169,
+          "total_tokens": 466
         }
       },
       {
@@ -73,57 +70,45 @@
         },
         "type": "tool",
         "name": "transfer_to_web_search_agent",
-        "id": "b1dbf71f-82c6-46f2-96b3-96b7c5dd6328",
-        "tool_call_id": "call_YC0nW3S1pQ5BVk1gsQjBMR3B",
+        "id": "cf1bd503-233e-49c0-bc10-5f560736c9b0",
+        "tool_call_id": "fc_4f57c94f-0596-4f45-8c00-5eb12025bc35",
         "artifact": null,
         "status": "success"
       },
       {
-        "content": "Google's parent company, Alphabet (GOOGL), is trading near record highs with a market cap approaching $3 trillion and a current share price around $255–$256. Recent Q2 2025 earnings highlighted robust performance across its key segments—with Search ad revenue up by 11.7% YoY, YouTube ad revenue growing by 13%, and Google Cloud revenue surging 32%.\n\nKey developments include:\n• Major investments in AI, with over $24 billion in new infrastructure spending and successful product launches like the Gemini AI app and AI-powered Pixel 10.\n• A significant court ruling that allowed Google to maintain its search partnerships, boosting investor sentiment.\n• Resilient stock performance with year-to-date gains of over 30% and a sharp 38% surge in Q3 2025.\n• Analyst optimism ahead of its upcoming earnings report, though regulatory challenges and global market uncertainties remain as risks.\n\nOverall, Alphabet’s strong growth in AI, cloud, and advertising continues to drive market momentum despite ongoing regulatory and competitive pressures.",
+        "content": "**Adobe Inc. (ADBE) – Stock Analysis (as of Oct 28 2025)**  \n\n| Item | Details | Source |\n|------|---------|--------|\n| **Current price** | $359.91 (close) | 【1†L1-L2】 |\n| **Consensus rating** | 21 analysts: **Buy** (no “Sell”, 1 “Strong Sell”) | 【1†L1-L2】 |\n| **12‑mo average price target** | $457.48 → **≈27 % upside** | 【1†L1-L2】 |\n| **Price‑target range** | $280 (‑22 %) – $590 (+64 %) | 【1†L1-L2】 |\n| **Recent earnings** | FY 2025 Q4: +11 % YoY revenue; modest forward‑guidance raise | 【3†L1-L2】 |\n| **Technical snapshot** | • 2.4 % above 50‑day MA<br>• 6.5 % below 200‑day MA<br>• RSI 57.9 (neutral) | 【2†L1-L2】 |\n| **Key support / resistance** | Support ≈ $327.5; Resistance ≈ $360.2 | 【2†L1-L2】 |\n| **Growth catalysts** | • AI‑powered “GenStudio” & Firefly upgrades (integration with YouTube Shorts, Amazon Ads, Google Marketing Platform, TikTok)<br>• New AI agents across Creative Cloud apps (Photoshop, Premiere, Illustrator)<br>• Enterprise‑focused Experience Cloud extensions | 【2†L1-L2】 |\n| **Competitive landscape** | • Rising generative‑AI rivals (OpenAI, Google, niche startups)<br>• Adobe’s platform partnerships aim to lock‑in creators & marketers | 【2†L1-L2】 |\n| **Risks** | • AI‑tool commoditization could pressure pricing & market share<br>• Revenue growth outlook softened: FY 2026 ≈ 7 %, FY 2027 ≈ 4 % (vs. ~23 % historic) <br>• Valuation compression despite solid fundamentals | 【6†L1-L2】【5†L1-L2】 |\n| **Shareholder returns** | Ongoing aggressive share‑buybacks supporting EPS | 【3†L1-L2】 |\n\n### Quick Takeaways\n1. **Valuation vs. upside** – The market currently prices Adobe ~27 % below the consensus 12‑month target, suggesting notable upside if growth expectations hold.  \n2. **Fundamentals** – Revenue continues to rise (≈11 % YoY in the latest quarter) and cash generation remains strong, but the share price has fallen sharply from its 2023 peak of $634, reflecting investor concerns.  \n3. **AI & ecosystem push** – Adobe’s recent announcements (AI agents, GenStudio, YouTube Shorts integration) are aimed at cementing its role in the creator‑economy and countering generative‑AI competition. Successful rollout could drive subscription expansion and higher retention.  \n4. **Technical outlook** – The stock sits just above its short‑term moving average but below the long‑term trend; a break above $360.2 could trigger further buying, while a fall through $327.5 may accelerate downside.  \n5. **Risk focus** – Slowing projected growth (7 % FY 2026, 4 % FY 2027) and the threat of lower‑cost AI alternatives are the primary downside catalysts.\n\n**Bottom line:** Adobe’s strong cash flow, expanding AI product suite, and solid analyst consensus support a bullish case, but investors should monitor execution of AI initiatives and any acceleration in competitive pressure that could erode the projected upside.",
         "additional_kwargs": {
-          "refusal": null
+          "reasoning_content": "We need to produce concise factual output, citing sources. Provide deep stock analysis with recent data. Use the info from sources. Need to reference with citations numbers. Provide key points."
         },
         "response_metadata": {
           "token_usage": {
-            "completion_tokens": 230,
-            "prompt_tokens": 1154,
-            "total_tokens": 1384,
-            "completion_tokens_details": {
-              "accepted_prediction_tokens": 0,
-              "audio_tokens": 0,
-              "reasoning_tokens": 0,
-              "rejected_prediction_tokens": 0
-            },
+            "completion_tokens": 854,
+            "prompt_tokens": 1534,
+            "total_tokens": 2388,
+            "completion_time": 2.287276786,
+            "prompt_time": 0.072099589,
+            "queue_time": 0.04757459,
+            "total_time": 2.359376375,
             "prompt_tokens_details": {
-              "audio_tokens": 0,
-              "cached_tokens": 0
+              "cached_tokens": 256
             }
           },
-          "model_provider": "openai",
-          "model_name": "o3-mini-2025-01-31",
-          "system_fingerprint": "fp_6c43dcef8c",
-          "id": "chatcmpl-CVskWtKUmwZVd2KYChGMS7w7FfaPh",
-          "service_tier": "default",
+          "model_name": "openai/gpt-oss-120b",
+          "system_fingerprint": "fp_ff6aa7708c",
+          "service_tier": "on_demand",
           "finish_reason": "stop",
-          "logprobs": null
+          "logprobs": null,
+          "model_provider": "groq"
         },
         "type": "ai",
         "name": null,
-        "id": "lc_run--739b7eb7-ba04-4765-a440-d2c92b3493c9-0",
+        "id": "lc_run--917f6ce0-70f6-4a8b-9f9b-b1055977060d-0",
         "tool_calls": [],
         "invalid_tool_calls": [],
         "usage_metadata": {
-          "input_tokens": 1154,
-          "output_tokens": 230,
-          "total_tokens": 1384,
-          "input_token_details": {
-            "audio": 0,
-            "cache_read": 0
-          },
-          "output_token_details": {
-            "audio": 0,
-            "reasoning": 0
-          }
+          "input_tokens": 1534,
+          "output_tokens": 854,
+          "total_tokens": 2388
         }
       },
       {
@@ -134,12 +119,12 @@
         },
         "type": "ai",
         "name": "web_search_agent",
-        "id": "2c1bd6e8-f434-416d-b245-75ac262c343d",
+        "id": "49011b9e-268f-4c61-90b3-ee094962ca51",
         "tool_calls": [
           {
             "name": "transfer_back_to_financial_manager_agent",
             "args": {},
-            "id": "3604ed4c-2b5e-4fb3-8173-8ba6c54d1f38",
+            "id": "d082d10e-25e1-41d2-893a-2800374f9f27",
             "type": "tool_call"
           }
         ],
@@ -154,64 +139,193 @@
         },
         "type": "tool",
         "name": "transfer_back_to_financial_manager_agent",
-        "id": "2aa39581-5930-4f10-9dbd-1658d0eb0201",
-        "tool_call_id": "3604ed4c-2b5e-4fb3-8173-8ba6c54d1f38",
+        "id": "199ab533-9baa-4af9-b22f-9821360b85f2",
+        "tool_call_id": "d082d10e-25e1-41d2-893a-2800374f9f27",
         "artifact": null,
         "status": "success"
       },
       {
         "content": "",
         "additional_kwargs": {
-          "refusal": null
+          "reasoning_content": "We need to follow developer instructions: supervise agents. Steps: 1 ask web_search_agent to collect recent market and company news. 2 ask finacial_yf_agent to gather stock prices, performance, financial metrics. 3 send all gathered data to report_generator_agent to create and save final report. The user asked \"Do a deep Search on the Stock Analysis of Adobe\". We partially responded with web search data but didn't ask financial_yf_agent or report_generator_agent. We need to coordinate: ask web_search_agent for news, ask finacial_yf_agent for financial data, then combine and send to report_generator_agent. So we need to request web_search_agent to gather recent market and company news. Then request finacial_yf_agent for stock prices etc. Then combine and send to report_generator_agent.\n\nWe already have some web search data, but we need to request again to ensure comprehensive. Let's ask web_search_agent with query: \"Adobe Inc. recent market news, AI product updates, earnings, analyst commentary\". Then ask finacial_yf_agent for stock data. Then combine.\n\nWe must not generate content ourselves beyond delegating. So we will call web_search_agent, then finacial_yf_agent, then report_generator_agent.",
+          "tool_calls": [
+            {
+              "id": "fc_0dca4675-a672-4b59-92dd-38dde60ba63b",
+              "function": {
+                "arguments": "{\"query\":\"Adobe Inc. recent market news AI product updates earnings analyst commentary 2024 2025\"}",
+                "name": "transfer_to_web_search_agent"
+              },
+              "type": "function"
+            }
+          ]
         },
         "response_metadata": {
           "token_usage": {
-            "completion_tokens": 157,
-            "prompt_tokens": 518,
-            "total_tokens": 675,
-            "completion_tokens_details": {
-              "accepted_prediction_tokens": 0,
-              "audio_tokens": 0,
-              "reasoning_tokens": 128,
-              "rejected_prediction_tokens": 0
-            },
-            "prompt_tokens_details": {
-              "audio_tokens": 0,
-              "cached_tokens": 0
-            }
+            "completion_tokens": 298,
+            "prompt_tokens": 1192,
+            "total_tokens": 1490,
+            "completion_time": 0.655253839,
+            "prompt_time": 0.055998139,
+            "queue_time": 0.051777971,
+            "total_time": 0.711251978
           },
-          "model_provider": "openai",
-          "model_name": "o3-mini-2025-01-31",
-          "system_fingerprint": "fp_3f8fed6e5a",
-          "id": "chatcmpl-CVskbymM8prVvfEo9x40i9ty5Xntc",
-          "service_tier": "default",
+          "model_name": "openai/gpt-oss-120b",
+          "system_fingerprint": "fp_ff6aa7708c",
+          "service_tier": "on_demand",
           "finish_reason": "tool_calls",
-          "logprobs": null
+          "logprobs": null,
+          "model_provider": "groq"
         },
         "type": "ai",
         "name": "financial_manager_agent",
-        "id": "lc_run--7ec05021-d5dc-4190-91f0-7d74044b083a-0",
+        "id": "lc_run--40e72ae2-d771-466b-b84d-bfffc3071571-0",
         "tool_calls": [
           {
-            "name": "transfer_to_finacial_yf_agent",
-            "args": {},
-            "id": "call_lWTqyvG3tyMXWKbeWaRfqZ7v",
+            "name": "transfer_to_web_search_agent",
+            "args": {
+              "query": "Adobe Inc. recent market news AI product updates earnings analyst commentary 2024 2025"
+            },
+            "id": "fc_0dca4675-a672-4b59-92dd-38dde60ba63b",
             "type": "tool_call"
           }
         ],
         "invalid_tool_calls": [],
         "usage_metadata": {
-          "input_tokens": 518,
-          "output_tokens": 157,
-          "total_tokens": 675,
-          "input_token_details": {
-            "audio": 0,
-            "cache_read": 0
+          "input_tokens": 1192,
+          "output_tokens": 298,
+          "total_tokens": 1490
+        }
+      },
+      {
+        "content": "Successfully transferred to web_search_agent",
+        "additional_kwargs": {},
+        "response_metadata": {
+          "__handoff_destination": "web_search_agent"
+        },
+        "type": "tool",
+        "name": "transfer_to_web_search_agent",
+        "id": "c490ea7c-bd3f-4cf8-8f19-012aee0efcd1",
+        "tool_call_id": "fc_0dca4675-a672-4b59-92dd-38dde60ba63b",
+        "artifact": null,
+        "status": "success"
+      },
+      {
+        "content": "**Adobe Inc. (ADBE) – Stock Analysis (as of Oct 28 2025)**  \n\n| Metric | Current Figure | Recent Trend / Context | Source |\n|--------|----------------|------------------------|--------|\n| **Share price** | **$359.91** (close) | Down ~48 % from the all‑time high of $688.37 (Nov 2021) | 【1†L1-L2】 |\n| **Consensus rating** | **Buy** (21 analysts) – 4 Strong Buy, 10 Buy, 8 Hold, 1 Strong Sell | Broadly positive despite a few recent downgrades | 【1†L1-L2】 |\n| **12‑month average price target** | **$457.48** → **≈27 % upside** | Targets range $280 – $590, showing upside potential but also downside uncertainty | 【1†L1-L2】 |\n| **Revenue (FY 2025 Q4)** | $5.99 bn (↑ 10.7 % YoY) | Beats expectations; growth driven by Digital Media & Experience Cloud | 【5†L1-L2】 |\n| **EPS (FY 2025 Q4)** | $6.14 (↑ 9 % YoY) | EPS growth supports the buy consensus | 【3†L1-L2】 |\n| **Technical snapshot** | • 2.4 % above 50‑day MA ($351.51) <br>• 6.5 % below 200‑day MA ($386.03) <br>• RSI 57.9 (neutral) | Short‑term momentum modest; long‑term trend still bearish | 【2†L1-L2】 |\n| **Key support / resistance** | Support ≈ $327.5; Resistance ≈ $360.2 | Break above $360.2 could trigger a rally; fall through $327.5 may accelerate decline | 【2†L1-L2】 |\n| **Growth catalysts** | • AI‑driven “GenStudio”, Firefly & Sensei upgrades (integration with YouTube Shorts, Amazon Ads, Google Marketing Platform, TikTok) <br>• New AI agents across Photoshop, Premiere, Illustrator <br>• Enterprise‑focused Experience Cloud extensions | Enhances subscription stickiness and opens new revenue streams | 【2†L1-L2】 |\n| **Competitive landscape** | • Rising generative‑AI rivals (OpenAI, Google, Canva, Figma) <br>• Adobe’s ecosystem (Creative Cloud, Document Cloud, Experience Cloud) still a strong moat | Competition could pressure pricing & market share | 【2†L1-L2】 |\n| **Risk highlights** | • Slowing growth outlook: FY 2026 revenue growth trimmed to ~7 %; FY 2027 to ~4 % (vs. historic ~23 %) <br>• AI commoditization risk <br>• Technical weakness (below 200‑day MA, RSI approaching overbought in some readings) | Potential upside compression if growth stalls or AI rivals gain traction | 【6†L1-L2】【5†L1-L2】 |\n| **Shareholder returns** | Ongoing aggressive share‑buybacks, supporting EPS growth | Capital return policy adds a floor to valuation | 【3†L1-L2】 |\n\n### Key Take‑aways\n\n1. **Valuation vs. Upside** – The market prices Adobe ~27 % below the consensus 12‑month target, indicating notable upside if growth expectations hold.\n2. **Fundamentals** – Revenue and EPS are still expanding (≈11 % YoY in Q4), and cash generation remains robust, but the share price has slipped sharply from its 2023 peak, reflecting investor caution.\n3. **AI & Ecosystem Strategy** – Adobe’s aggressive rollout of generative‑AI tools (GenStudio, Firefly, AI agents) and partnerships with major platforms aim to lock‑in creators and marketers, a critical lever for future subscription growth.\n4. **Technical Outlook** – The stock trades just above its short‑term moving average but remains below the long‑term trend line; a clean break above $360.2 could spark a short‑term rally, while a breach of $327.5 may trigger further downside.\n5. **Risk Focus** – Slower projected growth (7 % FY 2026, 4 % FY 2027) and the threat of lower‑cost AI alternatives are the primary downside catalysts; investors should monitor execution of AI initiatives and any acceleration in competitive pressure.\n\n**Bottom line:** Adobe remains a high‑quality, cash‑rich software leader with a strong AI roadmap and solid analyst support. The upside potential (~27 % to the consensus target) is attractive, but the near‑term technical weakness and slower growth outlook warrant careful entry points and ongoing monitoring of AI‑related competitive dynamics.",
+        "additional_kwargs": {
+          "reasoning_content": "We need to provide deep stock analysis, using recent news. We have sources with relevant data. Need concise factual answer. Should cite sources. Use multiple citations. Provide sections: price, rating, target, earnings, technicals, catalysts, risks, summary. Ensure citations."
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 1109,
+            "prompt_tokens": 3299,
+            "total_tokens": 4408,
+            "completion_time": 2.746598472,
+            "prompt_time": 0.317028278,
+            "queue_time": 0.047907651,
+            "total_time": 3.06362675,
+            "prompt_tokens_details": {
+              "cached_tokens": 256
+            }
           },
-          "output_token_details": {
-            "audio": 0,
-            "reasoning": 128
+          "model_name": "openai/gpt-oss-120b",
+          "system_fingerprint": "fp_ff6aa7708c",
+          "service_tier": "on_demand",
+          "finish_reason": "stop",
+          "logprobs": null,
+          "model_provider": "groq"
+        },
+        "type": "ai",
+        "name": null,
+        "id": "lc_run--8579a791-1f79-4a07-975f-e4797863a726-0",
+        "tool_calls": [],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 3299,
+          "output_tokens": 1109,
+          "total_tokens": 4408
+        }
+      },
+      {
+        "content": "Transferring back to financial_manager_agent",
+        "additional_kwargs": {},
+        "response_metadata": {
+          "__is_handoff_back": true
+        },
+        "type": "ai",
+        "name": "web_search_agent",
+        "id": "9d1c251d-43b2-4e08-a392-25066d447395",
+        "tool_calls": [
+          {
+            "name": "transfer_back_to_financial_manager_agent",
+            "args": {},
+            "id": "005f27e8-307e-4c54-9b89-ff8832b13511",
+            "type": "tool_call"
           }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": null
+      },
+      {
+        "content": "Successfully transferred back to financial_manager_agent",
+        "additional_kwargs": {},
+        "response_metadata": {
+          "__is_handoff_back": true
+        },
+        "type": "tool",
+        "name": "transfer_back_to_financial_manager_agent",
+        "id": "1ff5d057-006a-44de-8488-5adbbd1d49af",
+        "tool_call_id": "005f27e8-307e-4c54-9b89-ff8832b13511",
+        "artifact": null,
+        "status": "success"
+      },
+      {
+        "content": "",
+        "additional_kwargs": {
+          "reasoning_content": "We have collected web search data but not financial data from finacial_yf_agent. Need to request financial data (stock price, performance, metrics). Then send all gathered data to report_generator_agent. The user asked \"Do a deep Search on the Stock Analysis of Adobe\". The supervisor workflow: 1) ask web_search_agent to collect recent market and company news. Done. 2) ask finacial_yf_agent to gather stock prices, performance, financial metrics. Not yet done. Need to request that. Then combine and send to report_generator_agent to create and save final report.\n\nWe have data from web search, but need financial metrics perhaps more detailed like historical price, market cap, PE, etc. Let's request finacial_yf_agent.",
+          "tool_calls": [
+            {
+              "id": "fc_d3fe1120-c546-44b9-814f-84642a0cf60c",
+              "function": {
+                "arguments": "{}",
+                "name": "transfer_to_finacial_yf_agent"
+              },
+              "type": "function"
+            }
+          ]
+        },
+        "response_metadata": {
+          "token_usage": {
+            "completion_tokens": 176,
+            "prompt_tokens": 2335,
+            "total_tokens": 2511,
+            "completion_time": 0.382171091,
+            "prompt_time": 0.121777181,
+            "queue_time": 0.049525999,
+            "total_time": 0.503948272
+          },
+          "model_name": "openai/gpt-oss-120b",
+          "system_fingerprint": "fp_fd1fe7f861",
+          "service_tier": "on_demand",
+          "finish_reason": "tool_calls",
+          "logprobs": null,
+          "model_provider": "groq"
+        },
+        "type": "ai",
+        "name": "financial_manager_agent",
+        "id": "lc_run--a649aa57-dd36-4829-af66-33229118ba54-0",
+        "tool_calls": [
+          {
+            "name": "transfer_to_finacial_yf_agent",
+            "args": {},
+            "id": "fc_d3fe1120-c546-44b9-814f-84642a0cf60c",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "usage_metadata": {
+          "input_tokens": 2335,
+          "output_tokens": 176,
+          "total_tokens": 2511
         }
       },
       {
@@ -222,57 +336,40 @@
         },
         "type": "tool",
         "name": "transfer_to_finacial_yf_agent",
-        "id": "499244ea-4746-42bf-8329-39ba762be7c5",
-        "tool_call_id": "call_lWTqyvG3tyMXWKbeWaRfqZ7v",
+        "id": "cc9a1d43-c16a-4b08-9954-2bd1721f816d",
+        "tool_call_id": "fc_d3fe1120-c546-44b9-814f-84642a0cf60c",
         "artifact": null,
         "status": "success"
       },
       {
-        "content": "Ticker: GOOGL\n\nCurrent Price: $267.47  \nMarket Cap: $3,239,994,982,400  \nP/E Ratio: 28.48  \nForward P/E: 29.85  \n52-Week High: $270.73  \n52-Week Low: $140.53  \nAverage Volume: 32,903,557",
-        "additional_kwargs": {
-          "refusal": null
-        },
+        "content": "**Adobe Inc. (ADBE) – Live Stock & Financial Snapshot (as of Oct 28 2025)**  \n\n| Category | Metric | Value |\n|----------|--------|-------|\n| **Price & Market** | Current price | **$359.91** |\n| | Market cap | $150.66 B |\n| | P/E (trailing) | 22.42 |\n| | Forward P/E | 17.51 |\n| | 52‑week high / low | $557.90 / $327.50 |\n| | Beta | 1.49 |\n| **1‑Year Performance** | Start price (1 yr ago) | $485.39 |\n| | End price (today) | $359.91 |\n| | % change | **‑25.85 %** |\n| | High / Low (1 yr) | $557.90 / $327.50 |\n| | Average price (1 yr) | $405.04 |\n| | Volatility (Std Dev) | 54.73 |\n| **Profitability** | Revenue (TTM) | $23.18 B |\n| | Net income (TTM) | $6.96 B |\n| | Operating income | $9.79 B |\n| | Gross profit margin | 0.891 % |\n| | Operating margin | 0.363 % |\n| | Net profit margin | 0.300 % |\n| | EPS (trailing) | $16.05 |\n| | EPS (forward) | $20.55 |\n| **Liquidity & Solvency** | Free cash flow | $8.50 B |\n| | Current ratio | 1.019 |\n| | Quick ratio | 0.87 |\n| | Debt‑to‑equity | 56.54 |\n| **Returns** | ROE | 0.529 % |\n| | ROA | 0.181 % |\n| **Dividend** | Yield | N/A |\n| | Payout ratio | N/A |\n\n*All figures are pulled directly from Yahoo Finance via the required tools; no interpretation or assumptions are added.*",
+        "additional_kwargs": {},
         "response_metadata": {
           "token_usage": {
-            "completion_tokens": 155,
-            "prompt_tokens": 646,
-            "total_tokens": 801,
-            "completion_tokens_details": {
-              "accepted_prediction_tokens": 0,
-              "audio_tokens": 0,
-              "reasoning_tokens": 64,
-              "rejected_prediction_tokens": 0
-            },
-            "prompt_tokens_details": {
-              "audio_tokens": 0,
-              "cached_tokens": 0
-            }
+            "completion_tokens": 458,
+            "prompt_tokens": 2771,
+            "total_tokens": 3229,
+            "completion_time": 0.944423621,
+            "prompt_time": 0.142389071,
+            "queue_time": 0.052541499,
+            "total_time": 1.086812692
           },
-          "model_provider": "openai",
-          "model_name": "o3-mini-2025-01-31",
-          "system_fingerprint": "fp_3f8fed6e5a",
-          "id": "chatcmpl-CVskjG0QwFo6AMVln5F8SBQKmP2IU",
-          "service_tier": "default",
+          "model_name": "openai/gpt-oss-120b",
+          "system_fingerprint": "fp_cbd208ac51",
+          "service_tier": "on_demand",
           "finish_reason": "stop",
-          "logprobs": null
+          "logprobs": null,
+          "model_provider": "groq"
         },
         "type": "ai",
         "name": null,
-        "id": "lc_run--59ee21d5-627b-4adc-9ac9-4421b6a6e13d-0",
+        "id": "lc_run--063481b3-cbd9-4ccc-bdb2-1ea8fb613acf-0",
         "tool_calls": [],
         "invalid_tool_calls": [],
         "usage_metadata": {
-          "input_tokens": 646,
-          "output_tokens": 155,
-          "total_tokens": 801,
-          "input_token_details": {
-            "audio": 0,
-            "cache_read": 0
-          },
-          "output_token_details": {
-            "audio": 0,
-            "reasoning": 64
-          }
+          "input_tokens": 2771,
+          "output_tokens": 458,
+          "total_tokens": 3229
         }
       },
       {
@@ -283,12 +380,12 @@
         },
         "type": "ai",
         "name": "finacial_yf_agent",
-        "id": "3b6902b9-5950-49bf-bb2e-30fefe455e8f",
+        "id": "4517da3b-d9c9-4695-9205-b97a3c976b00",
         "tool_calls": [
           {
             "name": "transfer_back_to_financial_manager_agent",
             "args": {},
-            "id": "40f07ae9-a40a-4e55-84aa-50f9621ce2a7",
+            "id": "6bf77168-d01e-4087-b42e-13f9a2c08ad4",
             "type": "tool_call"
           }
         ],
@@ -303,64 +400,96 @@
         },
         "type": "tool",
         "name": "transfer_back_to_financial_manager_agent",
-        "id": "4f42ab40-e260-4250-8329-89095423ff19",
-        "tool_call_id": "40f07ae9-a40a-4e55-84aa-50f9621ce2a7",
+        "id": "e9abc3a1-f185-46b3-a2fb-42b3473726ec",
+        "tool_call_id": "6bf77168-d01e-4087-b42e-13f9a2c08ad4",
         "artifact": null,
         "status": "success"
       },
       {
         "content": "",
         "additional_kwargs": {
-          "refusal": null
+          "reasoning_content": "We have gathered web search data, financial data from Yahoo Finance. Now need to send all gathered data to report_generator_agent to create and save final report. Need to compile data into a request. Provide the data collected: web search summary (stock analysis) and financial metrics. Then call transfer_to_report_generator_agent with appropriate payload.",
+          "tool_calls": [
+            {
+              "id": "fc_a807d0f4-ab57-4147-a61a-1983514927ef",
+              "function": {
+                "arguments": "{\"financial_metrics\":{\"1y_average_price\":405.04,\"1y_change_percent\":-25.85,\"1y_end_price\":359.91,\"1y_high\":557.9,\"1y_low\":327.5,\"1y_start_price\":485.39,\"52_week_high\":557.9,\"52_week_low\":327.5,\"beta\":1.49,\"current_ratio\":1.019,\"debt_to_equity\":56.54,\"dividend_yield\":null,\"eps_forward\":20.55,\"eps_trailing\":16.05,\"free_cash_flow\":8500000000,\"gross_profit_margin\":0.891,\"market_cap\":150660000000,\"net_income_ttm\":6960000000,\"net_profit_margin\":0.3,\"operating_income\":9790000000,\"operating_margin\":0.363,\"payout_ratio\":null,\"pe_forward\":17.51,\"pe_trailing\":22.42,\"price\":359.91,\"quick_ratio\":0.87,\"revenue_ttm\":23180000000,\"roa\":0.181,\"roe\":0.529,\"volatility_std_dev\":54.73},\"web_summary\":\"Adobe Inc. (ADBE) – Stock Analysis (as of Oct 28 2025)\\n\\nCurrent price $359.91, consensus Buy, 12‑month avg target $457.48 (~27% upside). Revenue Q4 FY2025 up 10.7% YoY to $5.99bn, EPS $6.14 (+9%). Technical: 2.4% above 50‑day MA, 6.5% below 200‑day MA, RSI 57.9. Support $327.5, resistance $360.2. Growth catalysts: AI-driven GenStudio, Firefly, Sensei upgrades, integrations with YouTube Shorts, Amazon Ads, Google Marketing Platform, TikTok; new AI agents across Photoshop, Premiere, Illustrator; Experience Cloud extensions. Risks: slower growth outlook FY2026 ~7%, FY2027 ~4%, AI competition, valuation compression. Shareholder returns via aggressive buybacks.\\n\\nKey takeaways: notable upside vs target, solid fundamentals but price down 25.8% YTD, AI roadmap critical, technical weakness below 200‑day MA, monitor execution and competition.\"}",
+                "name": "transfer_to_report_generator_agent"
+              },
+              "type": "function"
+            }
+          ]
         },
         "response_metadata": {
           "token_usage": {
-            "completion_tokens": 99,
-            "prompt_tokens": 696,
-            "total_tokens": 795,
-            "completion_tokens_details": {
-              "accepted_prediction_tokens": 0,
-              "audio_tokens": 0,
-              "reasoning_tokens": 64,
-              "rejected_prediction_tokens": 0
-            },
+            "completion_tokens": 668,
+            "prompt_tokens": 2872,
+            "total_tokens": 3540,
+            "completion_time": 1.44566784,
+            "prompt_time": 0.12964615,
+            "queue_time": 0.047714029,
+            "total_time": 1.5753139900000002,
             "prompt_tokens_details": {
-              "audio_tokens": 0,
-              "cached_tokens": 0
+              "cached_tokens": 1024
             }
           },
-          "model_provider": "openai",
-          "model_name": "o3-mini-2025-01-31",
-          "system_fingerprint": "fp_6c43dcef8c",
-          "id": "chatcmpl-CVskn2V2c30RN0o9nA7SGRPoPdmOP",
-          "service_tier": "default",
+          "model_name": "openai/gpt-oss-120b",
+          "system_fingerprint": "fp_ff6aa7708c",
+          "service_tier": "on_demand",
           "finish_reason": "tool_calls",
-          "logprobs": null
+          "logprobs": null,
+          "model_provider": "groq"
         },
         "type": "ai",
         "name": "financial_manager_agent",
-        "id": "lc_run--a0d6c3e6-1daf-465f-8896-10735ef64ead-0",
+        "id": "lc_run--15e2fef7-2654-406a-a57e-750e9df12da0-0",
         "tool_calls": [
           {
             "name": "transfer_to_report_generator_agent",
-            "args": {},
-            "id": "call_IDI7Izm8m4wfh6jmrOM3OXca",
+            "args": {
+              "financial_metrics": {
+                "1y_average_price": 405.04,
+                "1y_change_percent": -25.85,
+                "1y_end_price": 359.91,
+                "1y_high": 557.9,
+                "1y_low": 327.5,
+                "1y_start_price": 485.39,
+                "52_week_high": 557.9,
+                "52_week_low": 327.5,
+                "beta": 1.49,
+                "current_ratio": 1.019,
+                "debt_to_equity": 56.54,
+                "dividend_yield": null,
+                "eps_forward": 20.55,
+                "eps_trailing": 16.05,
+                "free_cash_flow": 8500000000,
+                "gross_profit_margin": 0.891,
+                "market_cap": 150660000000,
+                "net_income_ttm": 6960000000,
+                "net_profit_margin": 0.3,
+                "operating_income": 9790000000,
+                "operating_margin": 0.363,
+                "payout_ratio": null,
+                "pe_forward": 17.51,
+                "pe_trailing": 22.42,
+                "price": 359.91,
+                "quick_ratio": 0.87,
+                "revenue_ttm": 23180000000,
+                "roa": 0.181,
+                "roe": 0.529,
+                "volatility_std_dev": 54.73
+              },
+              "web_summary": "Adobe Inc. (ADBE) – Stock Analysis (as of Oct 28 2025)\n\nCurrent price $359.91, consensus Buy, 12‑month avg target $457.48 (~27% upside). Revenue Q4 FY2025 up 10.7% YoY to $5.99bn, EPS $6.14 (+9%). Technical: 2.4% above 50‑day MA, 6.5% below 200‑day MA, RSI 57.9. Support $327.5, resistance $360.2. Growth catalysts: AI-driven GenStudio, Firefly, Sensei upgrades, integrations with YouTube Shorts, Amazon Ads, Google Marketing Platform, TikTok; new AI agents across Photoshop, Premiere, Illustrator; Experience Cloud extensions. Risks: slower growth outlook FY2026 ~7%, FY2027 ~4%, AI competition, valuation compression. Shareholder returns via aggressive buybacks.\n\nKey takeaways: notable upside vs target, solid fundamentals but price down 25.8% YTD, AI roadmap critical, technical weakness below 200‑day MA, monitor execution and competition."
+            },
+            "id": "fc_a807d0f4-ab57-4147-a61a-1983514927ef",
             "type": "tool_call"
           }
         ],
         "invalid_tool_calls": [],
         "usage_metadata": {
-          "input_tokens": 696,
-          "output_tokens": 99,
-          "total_tokens": 795,
-          "input_token_details": {
-            "audio": 0,
-            "cache_read": 0
-          },
-          "output_token_details": {
-            "audio": 0,
-            "reasoning": 64
-          }
+          "input_tokens": 2872,
+          "output_tokens": 668,
+          "total_tokens": 3540
         }
       },
       {
@@ -371,57 +500,40 @@
         },
         "type": "tool",
         "name": "transfer_to_report_generator_agent",
-        "id": "b570d235-2d0c-4557-9872-4464264c6329",
-        "tool_call_id": "call_IDI7Izm8m4wfh6jmrOM3OXca",
+        "id": "1a7c0e08-8a4b-4dc7-b953-1777d6d79716",
+        "tool_call_id": "fc_a807d0f4-ab57-4147-a61a-1983514927ef",
         "artifact": null,
         "status": "success"
       },
       {
-        "content": "Report saved successfully.",
-        "additional_kwargs": {
-          "refusal": null
-        },
+        "content": "Report successfully saved to output/stock_report_ADBE_20251029_143139.md",
+        "additional_kwargs": {},
         "response_metadata": {
           "token_usage": {
-            "completion_tokens": 18,
-            "prompt_tokens": 1171,
-            "total_tokens": 1189,
-            "completion_tokens_details": {
-              "accepted_prediction_tokens": 0,
-              "audio_tokens": 0,
-              "reasoning_tokens": 0,
-              "rejected_prediction_tokens": 0
-            },
-            "prompt_tokens_details": {
-              "audio_tokens": 0,
-              "cached_tokens": 0
-            }
+            "completion_tokens": 22,
+            "prompt_tokens": 4497,
+            "total_tokens": 4519,
+            "completion_time": 0.046389794,
+            "prompt_time": 0.217431996,
+            "queue_time": 0.053082074,
+            "total_time": 0.26382179
           },
-          "model_provider": "openai",
-          "model_name": "o3-mini-2025-01-31",
-          "system_fingerprint": "fp_c944a7bb88",
-          "id": "chatcmpl-CVskwlnxgH9jAZ9Mn4saJc4eKYylI",
-          "service_tier": "default",
+          "model_name": "openai/gpt-oss-120b",
+          "system_fingerprint": "fp_cbd208ac51",
+          "service_tier": "on_demand",
           "finish_reason": "stop",
-          "logprobs": null
+          "logprobs": null,
+          "model_provider": "groq"
         },
         "type": "ai",
         "name": null,
-        "id": "lc_run--a7b241b6-d3b3-4f70-a39f-387b463aabe7-0",
+        "id": "lc_run--27cedc3b-cb88-4eb6-b8db-5fbd2fb349c6-0",
         "tool_calls": [],
         "invalid_tool_calls": [],
         "usage_metadata": {
-          "input_tokens": 1171,
-          "output_tokens": 18,
-          "total_tokens": 1189,
-          "input_token_details": {
-            "audio": 0,
-            "cache_read": 0
-          },
-          "output_token_details": {
-            "audio": 0,
-            "reasoning": 0
-          }
+          "input_tokens": 4497,
+          "output_tokens": 22,
+          "total_tokens": 4519
         }
       },
       {
@@ -432,12 +544,12 @@
         },
         "type": "ai",
         "name": "report_generator_agent",
-        "id": "4c52f761-cdc9-485b-8853-f2f3d77abb4d",
+        "id": "4b3508f2-3b94-434a-a5d0-0a72b57e8f1d",
         "tool_calls": [
           {
             "name": "transfer_back_to_financial_manager_agent",
             "args": {},
-            "id": "090b86f1-18f6-415f-b64d-4455cfd45eb4",
+            "id": "b6999ab2-abfd-4b10-963b-1eb6cc549969",
             "type": "tool_call"
           }
         ],
@@ -452,57 +564,40 @@
         },
         "type": "tool",
         "name": "transfer_back_to_financial_manager_agent",
-        "id": "5a46b94d-1f4c-456e-98a5-c1a4f9d5ca45",
-        "tool_call_id": "090b86f1-18f6-415f-b64d-4455cfd45eb4",
+        "id": "21342c8b-f0e2-4d71-b089-f98fa109238e",
+        "tool_call_id": "b6999ab2-abfd-4b10-963b-1eb6cc549969",
         "artifact": null,
         "status": "success"
       },
       {
-        "content": "The final market intelligence report on Google's stock market performance has been generated and saved successfully.",
-        "additional_kwargs": {
-          "refusal": null
-        },
+        "content": "All steps have been completed. The market intelligence report for Adobe has been generated and saved. Let me know if you need any further analysis or distribution of the report.",
+        "additional_kwargs": {},
         "response_metadata": {
           "token_usage": {
-            "completion_tokens": 223,
-            "prompt_tokens": 793,
-            "total_tokens": 1016,
-            "completion_tokens_details": {
-              "accepted_prediction_tokens": 0,
-              "audio_tokens": 0,
-              "reasoning_tokens": 192,
-              "rejected_prediction_tokens": 0
-            },
-            "prompt_tokens_details": {
-              "audio_tokens": 0,
-              "cached_tokens": 0
-            }
+            "completion_tokens": 37,
+            "prompt_tokens": 3511,
+            "total_tokens": 3548,
+            "completion_time": 0.077632447,
+            "prompt_time": 0.159678233,
+            "queue_time": 0.048757777,
+            "total_time": 0.23731068
           },
-          "model_provider": "openai",
-          "model_name": "o3-mini-2025-01-31",
-          "system_fingerprint": "fp_3f8fed6e5a",
-          "id": "chatcmpl-CVskzqdrZpGbVclzxIpD5LpZUqVRc",
-          "service_tier": "default",
+          "model_name": "openai/gpt-oss-120b",
+          "system_fingerprint": "fp_e88ce9c728",
+          "service_tier": "on_demand",
           "finish_reason": "stop",
-          "logprobs": null
+          "logprobs": null,
+          "model_provider": "groq"
         },
         "type": "ai",
         "name": "financial_manager_agent",
-        "id": "lc_run--c2824aa1-e1da-4205-873c-d1aee95c8000-0",
+        "id": "lc_run--c7c7ad51-0e2f-44ce-8222-d82859bd3c3f-0",
         "tool_calls": [],
         "invalid_tool_calls": [],
         "usage_metadata": {
-          "input_tokens": 793,
-          "output_tokens": 223,
-          "total_tokens": 1016,
-          "input_token_details": {
-            "audio": 0,
-            "cache_read": 0
-          },
-          "output_token_details": {
-            "audio": 0,
-            "reasoning": 192
-          }
+          "input_tokens": 3511,
+          "output_tokens": 37,
+          "total_tokens": 3548
         }
       }
     ]

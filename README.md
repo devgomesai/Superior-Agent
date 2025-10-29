@@ -64,14 +64,20 @@ The Superior-Agent system consists of three specialized agents coordinated by a 
    # Perplexity API key for market research
    PERPLEXITY_API_KEY=your_perplexity_api_key_here
 
-   # LLM choice (Groq Cloud Models)
-   LLM_CHOICE=openai/gpt-oss-120b  
-   GROQ_API_KEY=gsk_xxx
+   # LLM provider and model selection
+   # Examples: groq:mixtral-8x7b-32768, anthropic:claude-3-5-sonnet-20241022
+   LLM_CHOICE=groq:mixtral-8x7b-32768
+
+   # API keys for your selected LLM provider
+   GROQ_API_KEY=gsk_your_groq_api_key_here
+   ANTHROPIC_API_KEY=sk-ant-your_anthropic_api_key_here
    ```
+
+   For more LLM options, refer to [LangChain's init_chat_model documentation](https://python.langchain.com/api_reference/langchain/chat_models/langchain.chat_models.base.init_chat_model.html)
 
 2. The application uses environment variables to configure:
    - Perplexity API for market research
-   - LLM model selection (currently only Anthropic models are implemented)
+   - LLM model selection and credentials
 
 ## 🚀 Usage
 
@@ -79,16 +85,23 @@ The Superior-Agent system consists of three specialized agents coordinated by a 
 
 1. Start the API server:
    ```bash
-   python src/agent/api/api.py
+   uvicorn src.agent.api.api:app --reload
+   ```
+
+   Or without auto-reload:
+   ```bash
+   uvicorn src.agent.api.api:app
    ```
 
 2. The API will be available at `http://127.0.0.1:8000`
 
-3. Send analysis requests using the `/analyze` endpoint:
+3. Access the interactive API documentation at `http://127.0.0.1:8000/docs`
+
+4. Send analysis requests using the `/analyze` endpoint:
    ```bash
    curl -X POST "http://127.0.0.1:8000/analyze" \
-        -H "Content-Type: application/json" \
-        -d '{"query": "Analyze Tesla stock (TSLA) performance and financial metrics"}'
+      -H "Content-Type: application/json" \
+      -d '{"query": "Analyze Tesla stock (TSLA) performance and financial metrics"}'
    ```
 
 ### Direct Mode
@@ -145,18 +158,17 @@ Available tools in `src/tools/stock_analysis_tools.py`:
 
 - **API Keys**: Ensure your Perplexity API key is valid and has sufficient credits
 - **Internet Connectivity**: The system requires internet access for fetching financial data and market research
-- **LLM Access**: Ensure your GROQ API key is properly configured
+- **LLM Access**: Ensure your LLM API key is properly configured in the `.env` file
 - **Rate Limits**: Be aware of API rate limits for both Perplexity and Yahoo Finance
+- **Port Already in Use**: If port 8000 is already in use, specify a different port: `uvicorn src.agent.api.api:app --port 8001`
 
-
-### Development Setup
+## 🛠️ Development Setup
 
 For development, install the package in editable mode:
 
 ```bash
 pip install -e .
 ```
-
 
 ## 🙏 Acknowledgments
 
