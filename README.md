@@ -2,6 +2,8 @@
 
 AI-powered stock analysis agent with multi-agent system for comprehensive market research and financial analysis.
 
+![Architecture Diagram](./architecture.png)
+
 [![Python](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
 [![LangGraph](https://img.shields.io/badge/langgraph-1.0.1-4D97FF)](https://github.com/langchain-ai/langgraph)
 [![FastAPI](https://img.shields.io/badge/fastapi-0.115.0+-009688)](https://fastapi.tiangolo.com/)
