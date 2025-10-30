@@ -1,5 +1,7 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from pydantic import BaseModel
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
 import logging
     
 try:
@@ -9,6 +11,10 @@ except ImportError:
     import os
     sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     from agent import get_agent
+
+import os
+base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+templates = Jinja2Templates(directory=os.path.join(base_dir, "templates"))
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -29,18 +35,12 @@ class AnalysisRequest(BaseModel):
 agent_app = get_agent()
 
 
-@app.get("/")
-async def agent_config():
+@app.get("/", response_class=HTMLResponse)
+async def agent_config( request: Request):
     """Home endpoint with stock agent information"""
-    return {
-        "name": "Stock Analysis Agent",
-        "description": "AI-powered stock analysis and research agent",
-        "version": "1.0.1",
-        "endpoints": {
-            "health": "/health",
-            "analyze": "/analyze"
-        }
-    }
+    return templates.TemplateResponse(
+        "index.html", {"request": request}
+    )
 
 @app.get("/health")
 async def health_check():

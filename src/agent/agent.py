@@ -47,7 +47,7 @@ except ImportError:
 
 load_dotenv()
 
-model = init_chat_model(os.getenv('LLM_CHOICE'))
+model = init_chat_model(os.getenv('LLM_CHOICE'), temperature=0.1)
 
 # Create specialized agents
 web_search_agent = create_agent(

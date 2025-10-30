@@ -19,7 +19,7 @@ YAHOO_FINANCE_AGENT_PROMPT = (
 
 REPORT_GENERATOR_AGENT_PROMPT = (
     "You are a report compiler. Your only task is to organize all received data "
-    "into a final structured report and save it.\n"
+    "into a final structured report and save it as markdown.\n"
     "Always use the `save_report_to_file` tool to create the report.\n"
     "Output nothing except the final saved report confirmation.\n"
     "Always call `save_report_to_file`."
