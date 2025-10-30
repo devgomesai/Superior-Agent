@@ -18,7 +18,29 @@ AI-powered stock analysis agent with multi-agent system for comprehensive market
 
 ## 🏗️ Architecture Overview
 
-The Superior-Agent system consists of three specialized agents coordinated by a supervisor:
+The Superior-Agent system consists of three specialized agents coordinated by a supervisor using LangGraph's multi-agent orchestration system. The project is organized into several core directories and modules that serve different purposes in the analysis pipeline:
+
+### Project Structure
+
+```
+Superior-Agent/
+├── output/                    # Generated stock analysis reports
+├── src/                       # Source code
+│   ├── agent/                 # Core agent logic and API interface
+│   │   ├── api/               # FastAPI web interface
+│   │   └── agent.py           # Main agent workflow implementation
+│   ├── prompts/               # System prompts for each agent
+│   ├── templates/             # HTML templates for web interface
+│   ├── tests/                 # Test scripts and interactive mode
+│   └── tools/                 # Stock analysis tools and utilities
+├── agent_flow.json            # Agent workflow configuration
+├── graph.png                  # Visual representation of the workflow
+├── requirements.txt           # Python dependencies
+├── pyproject.toml             # Project configuration
+└── README.md                  # Documentation
+```
+
+The system consists of these specialized agents coordinated by a supervisor:
 
 - **Web Search Expert**: Gathers current market news, trends, and analyst opinions using Perplexity API
 - **Finance Analyst**: Fetches stock prices, performance metrics, and financial data using yfinance
@@ -34,6 +56,7 @@ The Superior-Agent system consists of three specialized agents coordinated by a 
 - [Perplexity API](https://www.perplexity.ai/) - Market research and news gathering
 - [Pydantic](https://pydantic-docs.helpmanual.io/) - Data validation
 - [uvicorn](https://www.uvicorn.org/) - ASGI server
+- [Jinja2](https://jinja.palletsprojects.com/) - Template rendering for web interface
 
 ## 📦 Installation
 
@@ -106,13 +129,20 @@ The Superior-Agent system consists of three specialized agents coordinated by a 
 
 ### Direct Mode
 
-Run the application directly for interactive analysis:
+Run the application directly for interactive analysis from the command line (input query via stdin):
+
 
 ```bash
 python src/tests/main.py
 ```
 
 Follow the prompts to enter your stock analysis query.
+
+
+### Interactive Web Interface
+
+The application includes a web interface that can be accessed at `http://127.0.0.1:8000` when running in API mode. The web interface provides a user-friendly form to enter stock queries and view the analysis results in real-time.
+
 
 ## 📊 Multi-Agent Workflow
 
@@ -132,6 +162,7 @@ output/stock_report_{ticker}_{timestamp}.md
 ```
 
 Example output files included in the repository demonstrate the format of generated reports.
+
 
 ## 🔧 Customization
 
@@ -154,6 +185,11 @@ Available tools in `src/tools/stock_analysis_tools.py`:
 - `get_financial_metrics` - Get key financial metrics
 - `save_report_to_file` - Save analysis reports to markdown files
 
+### Project Configuration
+
+The `pyproject.toml` file contains the project metadata and dependencies. The `agent_flow.json` file contains the agent workflow configuration which can be modified to change the agent behavior. The `graph.png` image is auto-generated each time the agent runs to visualize the workflow.
+
+
 ## 🔍 Troubleshooting
 
 - **API Keys**: Ensure your Perplexity API key is valid and has sufficient credits
@@ -170,9 +206,35 @@ For development, install the package in editable mode:
 pip install -e .
 ```
 
+### Running Tests
+
+The project includes test scripts in `src/tests/` directory. You can run the interactive analysis directly to test functionality with `python src/tests/main.py` or `python src/tests/test.py` for unit tests. The application automatically generates workflow visualizations when run, which can be helpful for debugging the agent flow. 
+
+
+## 📁 Directory Structure
+
+The project is organized as follows:
+
+
+- `src/agent/` - Main agent logic and FastAPI implementation
+  - `src/agent/api/` - Web API endpoints and interface logic
+  - `src/agent/agent.py` - Core agent workflow and supervisor setup
+- `src/prompts/` - All agent system prompts in `agent_prompts.py`  
+- `src/templates/` - HTML templates for the web interface in `index.html`
+- `src/tests/` - Test scripts including `main.py` for interactive mode and `test.py` for unit tests
+- `src/tools/` - Stock analysis tools in `stock_analysis_tools.py` with functions for market data retrieval
+- `output/` - Auto-generated stock reports in markdown format
+- `requirements.txt` - Production dependencies
+- `pyproject.toml` - Project configuration and build metadata
+- `agent_flow.json` - Agent workflow configuration
+- `graph.png` - Generated workflow visualization
+- `trace.png` - Debug trace visualization (if available)
+
+
 ## 🙏 Acknowledgments
 
 - [LangChain](https://github.com/langchain-ai/langchain) and [LangGraph](https://github.com/langchain-ai/langgraph) for the multi-agent framework
 - [yfinance](https://github.com/ranaroussi/yfinance) for financial data access
 - [Perplexity](https://www.perplexity.ai/) for market research capabilities
 - [FastAPI](https://fastapi.tiangolo.com/) for the web framework
+- [Jinja2](https://jinja.palletsprojects.com/) for template rendering
