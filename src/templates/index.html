@@ -26,7 +26,6 @@
             overflow-x: hidden;
         }
 
-        /* Hide scrollbar but keep functionality */
         ::-webkit-scrollbar {
             display: none;
         }
@@ -214,6 +213,171 @@
             border-radius: 2px;
         }
 
+        .download-section {
+            background: linear-gradient(135deg, #0f2a0f 0%, #1a3a1a 100%);
+            border: 2px solid #00cc44;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .download-section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .download-section-title {
+            color: #00cc44;
+            font-weight: 600;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .download-section-title::before {
+            content: '📁';
+        }
+
+        .collapse-btn {
+            background: none;
+            border: none;
+            color: #00cc44;
+            font-size: 1.2em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .collapse-btn.collapsed {
+            transform: rotate(-90deg);
+        }
+
+        .collapse-btn:hover {
+            color: #76d776;
+        }
+
+        .download-content {
+            margin-top: 15px;
+            transition: max-height 0.3s ease, opacity 0.3s ease, margin-top 0.3s ease;
+            max-height: 500px;
+            opacity: 1;
+            overflow: hidden;
+        }
+
+        .download-content.collapsed {
+            max-height: 0;
+            margin-top: 0;
+            opacity: 0;
+            overflow: hidden;
+            visibility: hidden;
+        }
+
+        .download-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .download-item {
+            background: #0a1a0a;
+            border: 1px solid #1a3a1a;
+            border-radius: 6px;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .download-item:hover {
+            border-color: #00cc44;
+            background: rgba(0, 204, 68, 0.05);
+        }
+
+        .download-item-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .download-item-name {
+            color: #76d776;
+            font-size: 0.9em;
+            word-break: break-all;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .download-item-size {
+            color: #666;
+            font-size: 0.8em;
+        }
+
+        .btn-download-item {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #00cc44 0%, #009933 100%);
+            border: none;
+            border-radius: 4px;
+            color: #000;
+            font-weight: 600;
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .btn-download-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 204, 68, 0.3);
+        }
+
+        .btn-download-item:active {
+            transform: translateY(0);
+        }
+
+        .no-files {
+            color: #666;
+            font-size: 0.9em;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .btn-refresh {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #00cc44 0%, #009933 100%);
+            border: none;
+            border-radius: 4px;
+            color: #000;
+            font-weight: 600;
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            margin-top: 10px;
+        }
+
+        .btn-refresh:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 204, 68, 0.3);
+        }
+
         .json-viewer {
             background: #0f2a0f;
             border: 1px solid #1a3a1a;
@@ -226,11 +390,6 @@
             line-height: 1.7;
             white-space: pre-wrap;
             word-wrap: break-word;
-        }
-
-        .json-indent {
-            display: inline-block;
-            width: 2em;
         }
 
         .json-line {
@@ -294,6 +453,12 @@
             text-align: center;
         }
 
+        .file-status {
+            font-size: 0.8em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
         @media (max-width: 600px) {
             .container {
                 padding: 25px;
@@ -317,6 +482,16 @@
             }
 
             .btn-analyze {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .download-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .btn-download-item {
                 width: 100%;
                 justify-content: center;
             }
@@ -376,6 +551,18 @@
                 <div id="errorText"></div>
             </div>
         </div>
+
+        <div class="download-section" id="downloadSection">
+            <div class="download-section-header" onclick="toggleDownloadSection()">
+                <div class="download-section-title">Available Reports</div>
+                <button class="collapse-btn" id="collapseBtn">▼</button>
+            </div>
+            <div class="download-content" id="downloadContent">
+                <div class="file-status" id="fileStatus"></div>
+                <div class="download-list" id="downloadList"></div>
+                <button class="btn-refresh" onclick="loadAvailableReports()">🔄 Refresh Files</button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -386,6 +573,13 @@
         const errorSection = document.getElementById('errorSection');
         const jsonViewer = document.getElementById('jsonViewer');
         const errorText = document.getElementById('errorText');
+        const downloadSection = document.getElementById('downloadSection');
+        const downloadList = document.getElementById('downloadList');
+        const fileStatus = document.getElementById('fileStatus');
+        let currentResponseData = null;
+
+        // Load available reports on page load
+        window.addEventListener('load', loadAvailableReports);
 
         // Allow Enter key to submit
         queryInput.addEventListener('keypress', (e) => {
@@ -402,7 +596,6 @@
                 return;
             }
 
-            // Show loading, hide others
             showLoading();
             analyzeBtn.disabled = true;
 
@@ -421,7 +614,11 @@
                 }
 
                 const data = await response.json();
+                currentResponseData = data;
                 displayResponse(data);
+                
+                // Refresh file list after analysis
+                setTimeout(loadAvailableReports, 1000);
             } catch (error) {
                 showError(error.message);
             } finally {
@@ -440,6 +637,7 @@
             errorSection.classList.remove('active');
             responseSection.classList.add('active');
 
+            currentResponseData = data;
             jsonViewer.innerHTML = syntaxHighlight(JSON.stringify(data, null, 2));
         }
 
@@ -447,14 +645,152 @@
             loadingDiv.classList.remove('active');
             responseSection.classList.remove('active');
             errorSection.classList.add('active');
-
             errorText.textContent = message;
+        }
+
+        function toggleDownloadSection() {
+            const downloadContent = document.getElementById('downloadContent');
+            const collapseBtn = document.getElementById('collapseBtn');
+            
+            downloadContent.classList.toggle('collapsed');
+            collapseBtn.classList.toggle('collapsed');
+        }
+
+        async function loadAvailableReports() {
+            try {
+                fileStatus.textContent = 'Loading files...';
+                const response = await fetch('/output-files');
+                
+                if (!response.ok) {
+                    throw new Error('Failed to load reports');
+                }
+
+                const data = await response.json();
+                displayAvailableReports(data.files);
+            } catch (error) {
+                console.error('Error loading reports:', error);
+                fileStatus.textContent = '❌ Error loading files';
+                downloadList.innerHTML = '<div class="no-files">Failed to load reports</div>';
+            }
+        }
+
+        function displayAvailableReports(files) {
+            if (!files || files.length === 0) {
+                fileStatus.textContent = '📭 No reports available';
+                downloadList.innerHTML = '<div class="no-files">No reports generated yet</div>';
+                return;
+            }
+
+            fileStatus.textContent = `📊 ${files.length} file${files.length !== 1 ? 's' : ''} available`;
+            downloadList.innerHTML = '';
+
+            files.forEach(file => {
+                const fileSize = (file.size / 1024).toFixed(2);
+                const fileItem = document.createElement('div');
+                fileItem.className = 'download-item';
+                fileItem.innerHTML = `
+                    <div class="download-item-info">
+                        <div class="download-item-name">📄 ${file.name}</div>
+                        <div class="download-item-size">${fileSize} KB</div>
+                    </div>
+                    <button class="btn-download-item" onclick="downloadFile('${file.name.replace(/'/g, "\\'")}')">
+                        ⬇️ Download
+                    </button>
+                `;
+                downloadList.appendChild(fileItem);
+            });
+        }
+
+        async function downloadFile(filename) {
+            try {
+                const downloadUrl = `/output-files/${encodeURIComponent(filename)}`;
+                const response = await fetch(downloadUrl);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                const content = data.content;
+                
+                // Create blob and download
+                const blob = new Blob([content], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            } catch (error) {
+                showError('Failed to download file: ' + error.message);
+            }
+        }
+
+
+        function showFileContent(content, filename) {
+            loadingDiv.classList.remove('active');
+            errorSection.classList.remove('active');
+            responseSection.classList.add('active');
+            
+            // Convert markdown to HTML if needed
+            const htmlContent = markdownToHtml(content);
+            jsonViewer.innerHTML = htmlContent;
+        }
+
+        function markdownToHtml(markdown) {
+            let html = markdown;
+            
+            // Headers
+            html = html.replace(/^### (.*?)$/gm, '<h3 style="color: #00cc44; margin: 15px 0 10px 0; font-size: 1.1em; font-weight: 600;">$1</h3>');
+            html = html.replace(/^## (.*?)$/gm, '<h2 style="color: #00cc44; margin: 20px 0 10px 0; font-size: 1.3em; font-weight: 700;">$1</h2>');
+            html = html.replace(/^# (.*?)$/gm, '<h1 style="color: #76d776; margin: 25px 0 15px 0; font-size: 1.5em; font-weight: 700;">$1</h1>');
+            
+            // Bold
+            html = html.replace(/\*\*(.*?)\*\*/g, '<strong style="color: #76d776;">$1</strong>');
+            html = html.replace(/__(.*?)__/g, '<strong style="color: #76d776;">$1</strong>');
+            
+            // Italic
+            html = html.replace(/\*(.*?)\*/g, '<em style="color: #b0b0b0;">$1</em>');
+            html = html.replace(/_(.*?)_/g, '<em style="color: #b0b0b0;">$1</em>');
+            
+            // Code blocks
+            html = html.replace(/```(.*?)```/gs, '<pre style="background: #0a1a0a; border: 1px solid #1a3a1a; border-radius: 4px; padding: 10px; margin: 10px 0; overflow-x: auto; color: #76d776;">$1</pre>');
+            
+            // Inline code
+            html = html.replace(/`(.*?)`/g, '<code style="background: #0a1a0a; color: #76d776; padding: 2px 6px; border-radius: 3px;">$1</code>');
+            
+            // Line breaks
+            html = html.replace(/\n\n/g, '</p><p style="margin: 15px 0;">');
+            html = html.replace(/\n/g, '<br>');
+            
+            // Lists
+            html = html.replace(/^\- (.*?)$/gm, '<li style="margin-left: 20px; color: #e0e0e0;">$1</li>');
+            html = html.replace(/(<li.*?<\/li>)/s, '<ul style="list-style: none;">$1</ul>');
+            
+            // Horizontal rules
+            html = html.replace(/^---$/gm, '<hr style="border: none; border-top: 1px solid #1a3a1a; margin: 20px 0;">');
+            
+            // Tables (basic support)
+            html = html.replace(/\| (.*?) \|/g, '<tr><td style="padding: 8px; border: 1px solid #1a3a1a;">$1</td></tr>');
+            html = html.replace(/(<tr>.*?<\/tr>)/s, '<table style="width: 100%; border-collapse: collapse; margin: 15px 0;">$1</table>');
+            
+            // Links
+            html = html.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" style="color: #00cc44; text-decoration: none; border-bottom: 1px dotted #00cc44;">$1</a>');
+            
+            // Wrap in paragraph tags
+            html = '<p style="margin: 15px 0;">' + html + '</p>';
+            
+            // Clean up empty tags
+            html = html.replace(/<p><\/p>/g, '');
+            
+            return html;
         }
 
         function syntaxHighlight(json) {
             json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
             
-            // First pass: highlight syntax
             let highlighted = json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, (match) => {
                 let cls = 'json-number';
                 if (/^"/.test(match)) {
@@ -471,7 +807,6 @@
                 return `<span class="${cls}">${match}</span>`;
             });
             
-            // Second pass: convert lines with proper indentation display
             return highlighted.split('\n').map(line => {
                 const leadingSpaces = line.match(/^ */)[0].length;
                 const indentLevel = Math.floor(leadingSpaces / 2);
@@ -479,7 +814,7 @@
                 
                 if (!content) return '<div class="json-line"></div>';
                 
-                return `<div class="json-line"><span class="json-indent" style="margin-left: ${indentLevel * 1.2}em;"></span>${content}</div>`;
+                return `<div class="json-line"><span style="margin-left: ${indentLevel * 1.2}em;"></span>${content}</div>`;
             }).join('');
         }
     </script>

@@ -34,11 +34,17 @@ Superior-Agent/
 │   ├── prompts/               # System prompts for each agent
 │   ├── templates/             # HTML templates for web interface
 │   ├── tests/                 # Test scripts and interactive mode
+│   │   ├── main.py            # Interactive command-line interface
+│   │   ├── test.py            # Test script (commented out)
+│   │   └── tests.py           # Additional test utilities
 │   └── tools/                 # Stock analysis tools and utilities
 ├── agent_flow.json            # Agent workflow configuration
+├── architecture.png           # Architecture diagram
 ├── graph.png                  # Visual representation of the workflow
-├── requirements.txt           # Python dependencies
-├── pyproject.toml             # Project configuration
+├── pyproject.toml             # Project configuration and dependencies
+├── requirements.txt           # Python dependencies (in src/ directory)
+├── uv.lock                    # uv lock file for dependencies
+├── trace.png                  # Debug trace visualization
 └── README.md                  # Documentation
 ```
 
@@ -52,6 +58,7 @@ The system consists of these specialized agents coordinated by a supervisor:
 ## 🛠️ Technology Stack
 
 - [LangGraph](https://github.com/langchain-ai/langgraph) - State management and multi-agent orchestration
+- [LangGraph Supervisor](https://pypi.org/project/langgraph-supervisor/) - Multi-agent supervisor functionality
 - [LangChain](https://github.com/langchain-ai/langchain) - LLM integration and tool management
 - [FastAPI](https://fastapi.tiangolo.com/) - Web API framework
 - [yfinance](https://github.com/ranaroussi/yfinance) - Financial data fetching
@@ -59,6 +66,8 @@ The system consists of these specialized agents coordinated by a supervisor:
 - [Pydantic](https://pydantic-docs.helpmanual.io/) - Data validation
 - [uvicorn](https://www.uvicorn.org/) - ASGI server
 - [Jinja2](https://jinja.palletsprojects.com/) - Template rendering for web interface
+- [IPython](https://ipython.org/) - Interactive Python functionality
+- [Streamlit](https://streamlit.io/) - Optional web application framework
 
 ## 📦 Installation
 
@@ -76,9 +85,11 @@ The system consists of these specialized agents coordinated by a supervisor:
 
 3. Install dependencies:
    ```bash
-   pip install -r requirements.txt
-   # Or if using uv
-   uv pip install -r requirements.txt
+   # Using pip
+   pip install -e .
+   
+   # Or using uv (recommended)
+   uv pip install -e .
    ```
 
 ## ⚙️ Configuration
@@ -118,16 +129,38 @@ The system consists of these specialized agents coordinated by a supervisor:
    uvicorn src.agent.api.api:app
    ```
 
-2. The API will be available at `http://127.0.0.1:8000`
+2. The API will be available at `http://127.0.0.1:8000` also the web page
 
 3. Access the interactive API documentation at `http://127.0.0.1:8000/docs`
 
-4. Send analysis requests using the `/analyze` endpoint:
-   ```bash
-   curl -X POST "http://127.0.0.1:8000/analyze" \
-      -H "Content-Type: application/json" \
-      -d '{"query": "Analyze Tesla stock (TSLA) performance and financial metrics"}'
-   ```
+4. Available API Endpoints:
+
+   - **POST `/analyze`** - Analyze stock using the agent workflow
+     ```bash
+     curl -X POST "http://127.0.0.1:8000/analyze" \
+        -H "Content-Type: application/json" \
+        -d '{"query": "Analyze Tesla stock (TSLA) performance and financial metrics"}'
+     ```
+
+   - **GET `/`** - Home page with stock analysis interface
+     ```bash
+     curl -X GET "http://127.0.0.1:8000/"
+     ```
+
+   - **GET `/health`** - Health check endpoint
+     ```bash
+     curl -X GET "http://127.0.0.1:8000/health"
+     ```
+
+   - **GET `/output-files`** - List all generated stock reports
+     ```bash
+     curl -X GET "http://127.0.0.1:8000/output-files"
+     ```
+
+   - **GET `/output-files/{filename}`** - Get specific report content
+     ```bash
+     curl -X GET "http://127.0.0.1:8000/output-files/stock_report_AAPL_20251027_094248.md"
+     ```
 
 ### Direct Mode
 
@@ -135,7 +168,14 @@ Run the application directly for interactive analysis from the command line (inp
 
 
 ```bash
-python src/tests/main.py
+python -m src.tests.main
+```
+
+Or from the src directory:
+
+```bash
+cd src
+python -m tests.main
 ```
 
 Follow the prompts to enter your stock analysis query.
@@ -143,17 +183,23 @@ Follow the prompts to enter your stock analysis query.
 
 ### Interactive Web Interface
 
-The application includes a web interface that can be accessed at `http://127.0.0.1:8000` when running in API mode. The web interface provides a user-friendly form to enter stock queries and view the analysis results in real-time.
+The application includes a web interface accessible at `http://127.0.0.1:8000` when running in API mode. The interface features:
+
+- A stock query input form to enter analysis requests
+- Real-time display of the agent workflow and responses
+- Download section to access previously generated reports
+- Refresh functionality to update the list of available reports
+- Syntax-highlighted JSON response viewer
 
 
 ## 📊 Multi-Agent Workflow
 
 The system follows this workflow:
 
-1. **Supervisor** receives the analysis query and coordinates the workflow
-2. **Web Search Expert** uses Perplexity API to gather market news and trends
-3. **Finance Analyst** fetches live stock prices, performance metrics, and financial data
-4. **Report Generator** compiles all gathered information into a professional report
+1. **Financial Manager Agent** (supervisor) receives the analysis query and coordinates the workflow
+2. **Web Search Agent** uses Perplexity API to gather market news and trends
+3. **Yahoo Finance Agent** fetches live stock prices, performance metrics, and financial data
+4. **Report Generator Agent** compiles all gathered information into a professional report
 5. **Reports** are saved as markdown files in the `output/` directory
 
 ## 📁 Output Examples
@@ -181,7 +227,7 @@ The system uses customizable prompts located in `src/prompts/agent_prompts.py`:
 
 Available tools in `src/tools/stock_analysis_tools.py`:
 
-- `web_search_news` - Search for current market news and information
+- `web_search_news` - Search for current market news and information using Perplexity API
 - `get_stock_price` - Get current stock price and basic information
 - `get_stock_performance` - Get historical performance data
 - `get_financial_metrics` - Get key financial metrics
@@ -189,7 +235,7 @@ Available tools in `src/tools/stock_analysis_tools.py`:
 
 ### Project Configuration
 
-The `pyproject.toml` file contains the project metadata and dependencies. The `agent_flow.json` file contains the agent workflow configuration which can be modified to change the agent behavior. The `graph.png` image is auto-generated each time the agent runs to visualize the workflow.
+The `pyproject.toml` file contains the project metadata and dependencies. The `agent_flow.json` file contains the agent workflow configuration. The `graph.png` image is auto-generated each time the agent runs to visualize the workflow.
 
 
 ## 🔍 Troubleshooting
@@ -210,7 +256,12 @@ pip install -e .
 
 ### Running Tests
 
-The project includes test scripts in `src/tests/` directory. You can run the interactive analysis directly to test functionality with `python src/tests/main.py` or `python src/tests/test.py` for unit tests. The application automatically generates workflow visualizations when run, which can be helpful for debugging the agent flow. 
+The project includes test scripts in `src/tests/` directory:
+- `main.py` - Interactive command-line interface for testing
+- `test.py` - Commented-out test script (template for future tests)
+- `tests.py` - Additional test utilities
+
+You can run the interactive analysis directly to test functionality with `python -m src.tests.main`. The application automatically generates workflow visualizations when run, which can be helpful for debugging the agent flow. 
 
 
 ## 📁 Directory Structure
@@ -223,7 +274,7 @@ The project is organized as follows:
   - `src/agent/agent.py` - Core agent workflow and supervisor setup
 - `src/prompts/` - All agent system prompts in `agent_prompts.py`  
 - `src/templates/` - HTML templates for the web interface in `index.html`
-- `src/tests/` - Test scripts including `main.py` for interactive mode and `test.py` for unit tests
+- `src/tests/` - Test scripts including `main.py` for interactive mode, `test.py` (commented template), and `tests.py` for additional utilities
 - `src/tools/` - Stock analysis tools in `stock_analysis_tools.py` with functions for market data retrieval
 - `output/` - Auto-generated stock reports in markdown format
 - `requirements.txt` - Production dependencies
