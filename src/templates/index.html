@@ -525,7 +525,7 @@
                     type="text" 
                     class="query-input" 
                     id="queryInput" 
-                    placeholder="Enter your stock query (e.g., 'Analyze AAPL stock performance')"
+                    placeholder="Enter your query (e.g., 'Analyze AAPL stock performance')"
                     autocomplete="off"
                 >
                 <button class="btn-analyze" id="analyzeBtn" onclick="analyzeStock()">
@@ -560,7 +560,7 @@
             <div class="download-content" id="downloadContent">
                 <div class="file-status" id="fileStatus"></div>
                 <div class="download-list" id="downloadList"></div>
-                <button class="btn-refresh" onclick="loadAvailableReports()">🔄 Refresh Files</button>
+                <button class="btn-refresh" onclick="loadAvailableReports()">Refresh Files</button>
             </div>
         </div>
     </div>
@@ -669,19 +669,19 @@
                 displayAvailableReports(data.files);
             } catch (error) {
                 console.error('Error loading reports:', error);
-                fileStatus.textContent = '❌ Error loading files';
+                fileStatus.textContent = 'Error loading files';
                 downloadList.innerHTML = '<div class="no-files">Failed to load reports</div>';
             }
         }
 
         function displayAvailableReports(files) {
             if (!files || files.length === 0) {
-                fileStatus.textContent = '📭 No reports available';
+                fileStatus.textContent = 'No reports available';
                 downloadList.innerHTML = '<div class="no-files">No reports generated yet</div>';
                 return;
             }
 
-            fileStatus.textContent = `📊 ${files.length} file${files.length !== 1 ? 's' : ''} available`;
+            fileStatus.textContent = `${files.length} file${files.length !== 1 ? 's' : ''} available`;
             downloadList.innerHTML = '';
 
             files.forEach(file => {
@@ -690,11 +690,11 @@
                 fileItem.className = 'download-item';
                 fileItem.innerHTML = `
                     <div class="download-item-info">
-                        <div class="download-item-name">📄 ${file.name}</div>
+                        <div class="download-item-name">${file.name}</div>
                         <div class="download-item-size">${fileSize} KB</div>
                     </div>
                     <button class="btn-download-item" onclick="downloadFile('${file.name.replace(/'/g, "\\'")}')">
-                        ⬇️ Download
+                         Download
                     </button>
                 `;
                 downloadList.appendChild(fileItem);
