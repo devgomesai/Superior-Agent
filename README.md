@@ -1,4 +1,4 @@
-# Superior-Agent 🤖⛏️
+# Superior-Agents 🤖⛏️
 
 AI-powered stock analysis agent with multi-agent system for comprehensive market research and financial analysis.
 
