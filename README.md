@@ -8,54 +8,50 @@ AI-powered stock analysis agent with multi-agent system for comprehensive market
 [![LangGraph](https://img.shields.io/badge/langgraph-1.0.1-4D97FF)](https://github.com/langchain-ai/langgraph)
 [![FastAPI](https://img.shields.io/badge/fastapi-0.115.0+-009688)](https://fastapi.tiangolo.com/)
 
-## 🚀 Features
+## Table of Contents
+
+- [Features](#features)
+- [Architecture](#architecture)
+- [Tech Stack](#tech-stack)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [Customization](#customization)
+- [Troubleshooting](#troubleshooting)
+- [Development](#development)
+
+## Features
 
 - **Multi-Agent Architecture**: Three specialized agents work together to provide comprehensive stock analysis
 - **Real-time Market Data**: Fetches live stock prices, performance metrics, and financial data
 - **Market Intelligence**: Uses Perplexity API to gather the latest news, trends, and analyst opinions
 - **Automated Reports**: Generates professional markdown reports from the analysis
 - **Web API**: FastAPI interface for easy integration and access
+- **Interactive Web Interface**: User-friendly dashboard for stock analysis
 - **Workflow Visualization**: Mermaid graph visualization of the agent workflow
 - **Customizable Prompts**: Configurable system prompts for different analysis needs
 
-## 🏗️ Architecture Overview
+## Architecture
 
-The Superior-Agent system consists of three specialized agents coordinated by a supervisor using LangGraph's multi-agent orchestration system. The project is organized into several core directories and modules that serve different purposes in the analysis pipeline:
+### Overview
 
-### Project Structure
-
-```
-Superior-Agent/
-├── output/                    # Generated stock analysis reports
-├── src/                       # Source code
-│   ├── agent/                 # Core agent logic and API interface
-│   │   ├── api/               # FastAPI web interface
-│   │   └── agent.py           # Main agent workflow implementation
-│   ├── prompts/               # System prompts for each agent
-│   ├── templates/             # HTML templates for web interface
-│   ├── tests/                 # Test scripts and interactive mode
-│   │   ├── main.py            # Interactive command-line interface
-│   │   ├── test.py            # Test script (commented out)
-│   │   └── tests.py           # Additional test utilities
-│   └── tools/                 # Stock analysis tools and utilities
-├── agent_flow.json            # Agent workflow configuration
-├── architecture.png           # Architecture diagram
-├── graph.png                  # Visual representation of the workflow
-├── pyproject.toml             # Project configuration and dependencies
-├── requirements.txt           # Python dependencies (in src/ directory)
-├── uv.lock                    # uv lock file for dependencies
-├── trace.png                  # Debug trace visualization
-└── README.md                  # Documentation
-```
-
-The system consists of these specialized agents coordinated by a supervisor:
+The Superior-Agent system consists of three specialized agents coordinated by a supervisor using LangGraph's multi-agent orchestration:
 
 - **Web Search Expert**: Gathers current market news, trends, and analyst opinions using Perplexity API
 - **Finance Analyst**: Fetches stock prices, performance metrics, and financial data using yfinance
 - **Report Generator**: Compiles all gathered data into professional markdown reports
 - **Supervisor**: Orchestrates the workflow between agents to generate comprehensive analyses
 
-## 🛠️ Technology Stack
+### Workflow
+
+1. **Financial Manager Agent** (supervisor) receives the analysis query and coordinates the workflow
+2. **Web Search Agent** uses Perplexity API to gather market news and trends
+3. **Yahoo Finance Agent** fetches live stock prices, performance metrics, and financial data
+4. **Report Generator Agent** compiles all gathered information into a professional report
+5. **Reports** are saved as markdown files in the `output/` directory
+
+## Tech Stack
 
 - [LangGraph](https://github.com/langchain-ai/langgraph) - State management and multi-agent orchestration
 - [LangGraph Supervisor](https://pypi.org/project/langgraph-supervisor/) - Multi-agent supervisor functionality
@@ -65,11 +61,11 @@ The system consists of these specialized agents coordinated by a supervisor:
 - [Perplexity API](https://www.perplexity.ai/) - Market research and news gathering
 - [Pydantic](https://pydantic-docs.helpmanual.io/) - Data validation
 - [uvicorn](https://www.uvicorn.org/) - ASGI server
-- [Jinja2](https://jinja.palletsprojects.com/) - Template rendering for web interface
+- [Jinja2](https://jinja.palletsprojects.com/) - Template rendering
 - [IPython](https://ipython.org/) - Interactive Python functionality
 - [Streamlit](https://streamlit.io/) - Optional web application framework
 
-## 📦 Installation
+## Installation
 
 1. Clone the repository:
    ```bash
@@ -92,9 +88,9 @@ The system consists of these specialized agents coordinated by a supervisor:
    uv pip install -e .
    ```
 
-## ⚙️ Configuration
+## Configuration
 
-1. Create a `.env` file in the project root directory with the following variables:
+1. Create a `.env` file in the project root directory:
 
    ```env
    # Perplexity API key for market research
@@ -109,15 +105,15 @@ The system consists of these specialized agents coordinated by a supervisor:
    ANTHROPIC_API_KEY=sk-ant-your_anthropic_api_key_here
    ```
 
-   For more LLM options, refer to [documentation](https://python.langchain.com/api_reference/langchain/chat_models/langchain.chat_models.base.init_chat_model.html)
+   For more LLM options, refer to the [LangChain documentation](https://python.langchain.com/api_reference/langchain/chat_models/langchain.chat_models.base.init_chat_model.html).
 
-2. The application uses environment variables to configure:
-   - Perplexity API for market research
+2. The application automatically uses these environment variables for:
+   - Perplexity API authentication for market research
    - LLM model selection and credentials
 
-## 🚀 Usage
+## Usage
 
-### API Mode
+### API Mode (Recommended)
 
 1. Start the API server:
    ```bash
@@ -129,43 +125,39 @@ The system consists of these specialized agents coordinated by a supervisor:
    uvicorn src.agent.api.api:app
    ```
 
-2. The API will be available at `http://127.0.0.1:8000` also the web page
+2. Access the application:
+   - Web interface: `http://127.0.0.1:8000`
+   - API documentation: `http://127.0.0.1:8000/docs`
 
-3. Access the interactive API documentation at `http://127.0.0.1:8000/docs`
+### API Endpoints
 
-4. Available API Endpoints:
+- **POST `/analyze`** - Analyze stock using the agent workflow
+  ```bash
+  curl -X POST "http://127.0.0.1:8000/analyze" \
+    -H "Content-Type: application/json" \
+    -d '{"query": "Analyze Tesla stock (TSLA) performance and financial metrics"}'
+  ```
 
-   - **POST `/analyze`** - Analyze stock using the agent workflow
-     ```bash
-     curl -X POST "http://127.0.0.1:8000/analyze" \
-        -H "Content-Type: application/json" \
-        -d '{"query": "Analyze Tesla stock (TSLA) performance and financial metrics"}'
-     ```
+- **GET `/`** - Home page with stock analysis interface
 
-   - **GET `/`** - Home page with stock analysis interface
-     ```bash
-     curl -X GET "http://127.0.0.1:8000/"
-     ```
+- **GET `/health`** - Health check endpoint
+  ```bash
+  curl -X GET "http://127.0.0.1:8000/health"
+  ```
 
-   - **GET `/health`** - Health check endpoint
-     ```bash
-     curl -X GET "http://127.0.0.1:8000/health"
-     ```
+- **GET `/output-files`** - List all generated stock reports
+  ```bash
+  curl -X GET "http://127.0.0.1:8000/output-files"
+  ```
 
-   - **GET `/output-files`** - List all generated stock reports
-     ```bash
-     curl -X GET "http://127.0.0.1:8000/output-files"
-     ```
+- **GET `/output-files/{filename}`** - Get specific report content
+  ```bash
+  curl -X GET "http://127.0.0.1:8000/output-files/stock_report_AAPL_20251027_094248.md"
+  ```
 
-   - **GET `/output-files/{filename}`** - Get specific report content
-     ```bash
-     curl -X GET "http://127.0.0.1:8000/output-files/stock_report_AAPL_20251027_094248.md"
-     ```
+### Interactive Command-Line Mode
 
-### Direct Mode
-
-Run the application directly for interactive analysis from the command line (input query via stdin):
-
+Run the application directly for interactive analysis:
 
 ```bash
 python -m src.tests.main
@@ -180,75 +172,94 @@ python -m tests.main
 
 Follow the prompts to enter your stock analysis query.
 
+### Web Interface Features
 
-### Interactive Web Interface
+The interactive web interface (`http://127.0.0.1:8000`) includes:
 
-The application includes a web interface accessible at `http://127.0.0.1:8000` when running in API mode. The interface features:
-
-- A stock query input form to enter analysis requests
-- Real-time display of the agent workflow and responses
-- Download section to access previously generated reports
-- Refresh functionality to update the list of available reports
+- Stock query input form for analysis requests
+- Real-time display of agent workflow and responses
+- Download section for previously generated reports
+- Refresh functionality to update report listings
 - Syntax-highlighted JSON response viewer
 
+## Project Structure
 
-## 📊 Multi-Agent Workflow
-
-The system follows this workflow:
-
-1. **Financial Manager Agent** (supervisor) receives the analysis query and coordinates the workflow
-2. **Web Search Agent** uses Perplexity API to gather market news and trends
-3. **Yahoo Finance Agent** fetches live stock prices, performance metrics, and financial data
-4. **Report Generator Agent** compiles all gathered information into a professional report
-5. **Reports** are saved as markdown files in the `output/` directory
-
-## 📁 Output Examples
-
-Analysis reports are saved automatically in the `output/` directory with filenames following this pattern:
 ```
-output/stock_report_{ticker}_{timestamp}.md
+superior-agent/
+├── src/
+│   ├── agent/
+│   │   ├── api/
+│   │   │   ├── __init__.py
+│   │   │   └── api.py                    # FastAPI endpoints
+│   │   ├── __init__.py
+│   │   └── agent.py                      # Core agent workflow
+│   ├── prompts/
+│   │   └── agent_prompts.py              # Agent system prompts
+│   ├── templates/
+│   │   └── index.html                    # Web interface
+│   ├── tests/
+│   │   ├── main.py                       # Interactive CLI mode
+│   │   ├── test.py                       # Test template
+│   │   └── tests.py                      # Test utilities
+│   ├── tools/
+│   │   └── stock_analysis_tools.py       # Market data tools
+│   ├── __init__.py
+│   └── requirements.txt
+├── output/                               # Generated stock reports
+├── .gitignore
+├── .python-version
+├── agent_flow.json                       # Workflow configuration
+├── architecture.png                      # Architecture diagram
+├── Dockerfile
+├── graph.png                             # Workflow visualization
+├── pyproject.toml                        # Project configuration
+├── README.md
+├── trace.png                             # Debug trace
+└── uv.lock
 ```
 
-Example output files included in the repository demonstrate the format of generated reports.
-
-
-## 🔧 Customization
+## Customization
 
 ### Prompts
 
-The system uses customizable prompts located in `src/prompts/agent_prompts.py`:
+Customize agent behavior in `src/prompts/agent_prompts.py`:
 
-- `WEB_SEARCH_AGENT_PROMPT` - Configuration for the web research agent
-- `YAHOO_FINANCE_AGENT_PROMPT` - Configuration for the finance analyst agent
-- `REPORT_GENERATOR_AGENT_PROMPT` - Configuration for the report generator agent
-- `SUPERVISOR_PROMPT` - Configuration for the workflow coordinator
+- `WEB_SEARCH_AGENT_PROMPT` - Web research agent configuration
+- `YAHOO_FINANCE_AGENT_PROMPT` - Finance analyst configuration
+- `REPORT_GENERATOR_AGENT_PROMPT` - Report generator configuration
+- `SUPERVISOR_PROMPT` - Workflow coordinator configuration
 
 ### Tools
 
 Available tools in `src/tools/stock_analysis_tools.py`:
 
-- `web_search_news` - Search for current market news and information using Perplexity API
-- `get_stock_price` - Get current stock price and basic information
-- `get_stock_performance` - Get historical performance data
-- `get_financial_metrics` - Get key financial metrics
-- `save_report_to_file` - Save analysis reports to markdown files
+- `web_search_news()` - Search market news using Perplexity API
+- `get_stock_price()` - Fetch current stock price and information
+- `get_stock_performance()` - Retrieve historical performance data
+- `get_financial_metrics()` - Get key financial metrics
+- `save_report_to_file()` - Save analysis reports to markdown
 
-### Project Configuration
+### Configuration Files
 
-The `pyproject.toml` file contains the project metadata and dependencies. The `agent_flow.json` file contains the agent workflow configuration. The `graph.png` image is auto-generated each time the agent runs to visualize the workflow.
+- `pyproject.toml` - Project metadata and dependencies
+- `agent_flow.json` - Agent workflow configuration
+- `graph.png` - Auto-generated workflow visualization
 
+## Troubleshooting
 
-## 🔍 Troubleshooting
+| Issue | Solution |
+|-------|----------|
+| **API Keys Invalid** | Verify your Perplexity and LLM API keys have sufficient credits |
+| **No Internet Connection** | The system requires internet for fetching financial data and research |
+| **LLM Access Error** | Ensure your LLM API key is properly configured in `.env` |
+| **Rate Limits Exceeded** | Be aware of API rate limits for Perplexity and Yahoo Finance |
+| **Port 8000 Already in Use** | Specify a different port: `uvicorn src.agent.api.api:app --port 8001` |
 
-- **API Keys**: Ensure your Perplexity API key is valid and has sufficient credits
-- **Internet Connectivity**: The system requires internet access for fetching financial data and market research
-- **LLM Access**: Ensure your LLM API key is properly configured in the `.env` file
-- **Rate Limits**: Be aware of API rate limits for both Perplexity and Yahoo Finance
-- **Port Already in Use**: If port 8000 is already in use, specify a different port: `uvicorn src.agent.api.api:app --port 8001`
+## Development
 
-## 🛠️ Development Setup
+### Setup
 
-For development, install the package in editable mode:
+Install the package in editable mode for development:
 
 ```bash
 pip install -e .
@@ -256,35 +267,23 @@ pip install -e .
 
 ### Running Tests
 
-The project includes test scripts in `src/tests/` directory:
+Test scripts are located in `src/tests/`:
+
 - `main.py` - Interactive command-line interface for testing
-- `test.py` - Commented-out test script (template for future tests)
+- `test.py` - Test template (commented)
 - `tests.py` - Additional test utilities
 
-You can run the interactive analysis directly to test functionality with `python -m src.tests.main`. The application automatically generates workflow visualizations when run, which can be helpful for debugging the agent flow. 
+Run interactive analysis to test functionality:
 
+```bash
+python -m src.tests.main
+```
 
-## 📁 Directory Structure
+### Workflow Visualization
 
-The project is organized as follows:
+The application automatically generates workflow visualizations (`graph.png`) when run, useful for debugging the agent flow.
 
-
-- `src/agent/` - Main agent logic and FastAPI implementation
-  - `src/agent/api/` - Web API endpoints and interface logic
-  - `src/agent/agent.py` - Core agent workflow and supervisor setup
-- `src/prompts/` - All agent system prompts in `agent_prompts.py`  
-- `src/templates/` - HTML templates for the web interface in `index.html`
-- `src/tests/` - Test scripts including `main.py` for interactive mode, `test.py` (commented template), and `tests.py` for additional utilities
-- `src/tools/` - Stock analysis tools in `stock_analysis_tools.py` with functions for market data retrieval
-- `output/` - Auto-generated stock reports in markdown format
-- `requirements.txt` - Production dependencies
-- `pyproject.toml` - Project configuration and build metadata
-- `agent_flow.json` - Agent workflow configuration
-- `graph.png` - Generated workflow visualization
-- `trace.png` - Debug trace visualization (if available)
-
-
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - [LangChain](https://github.com/langchain-ai/langchain) and [LangGraph](https://github.com/langchain-ai/langgraph) for the multi-agent framework
 - [yfinance](https://github.com/ranaroussi/yfinance) for financial data access
