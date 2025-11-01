@@ -3,6 +3,8 @@ from pydantic import BaseModel
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 import logging
+import time
+import psutil
 import os
 import sys
 import json
@@ -22,6 +24,8 @@ app = FastAPI(
     title="Stock Analysis Agent API",
     version="1.0.0"
 )
+
+start_time = time.time()
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
@@ -46,7 +50,20 @@ async def agent_config(request: Request):
 @app.get("/health")
 async def health_check():
     """Health check endpoint"""
-    return {"status": "healthy"}
+    uptime_seconds = int(time.time() - start_time)
+    
+    cpu_percent = psutil.cpu_percent() if psutil else None
+    memory = psutil.virtual_memory()._asdict() if psutil else None
+
+    return {
+        "status": "healthy",
+        "version": "1.0.0",
+        "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "metrics": {
+            "cpu_percent": cpu_percent,
+            "memory": memory
+        }
+    }
 
 @app.post("/analyze")
 async def analyze(request: AnalysisRequest):
